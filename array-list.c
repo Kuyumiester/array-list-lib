@@ -1,12 +1,3 @@
-/*
-    lists of this library can support up to 65,536 elements
-*/
-
- /*
-        things to consider
-    it would probably be more performant to pass the ArrayList to functions by value
- */
-
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
@@ -27,9 +18,6 @@ ArrayList arrayListInit(uint16_t type_size) {
 
 void arrayListDeinit(ArrayList *list) {
     free(list->items);
-
-    /* do stuff to prevent you from accidentally trying
-    to use an arraylist after it's been deinitialized */
     memset(list, 0, 16);
 }
 
