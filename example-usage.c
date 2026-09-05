@@ -4,19 +4,31 @@
 */
 
 #include "array-list.h"
+#include "stdio.h"
 
-int main() {
-    ArrayList list = initArrayList(sizeof (int)); /* { } */
+int main(void) {
+    ArrayList list;
+    int value;
+    int retrieved_value;
+    int i;
 
-    int value = 9;
-    appendToArrayList(&list, &value); /* { 9 } */
+    list = arrayListInit(sizeof (int)); /* { } */
+
+    value = 9;
+    arrayListAppend(&list, &value); /* { 9 } */
 
     #define integers ((int *)list.items)
-    int retrieved_value = integers[0];
+    retrieved_value = integers[0];
 
-    swapRemove(&list, 0); /* { } */
+    arrayListRemove(&list, 0); /* { } */
 
-    deinitArrayList(&list);
+    /* use lots of memory (64 MiB) */
+    for (i = 0; i < 10000000; i++) {
+        arrayListAppend(&list, &i);
+    }
+    printf("additional allocations: %d\n", list.capacity);
+
+    arrayListDeinit(&list);
 
     return 0;
 }
